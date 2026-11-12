@@ -123,7 +123,10 @@
     htmlEl.lang = lang;
     htmlEl.dir = 'ltr';
     if (langSelect) langSelect.value = lang;
-    const dict = { ..."turkish", ...selected };
+    
+    // DÜZELTME: "turkish" string yerine turkish objesi spread edildi
+    const dict = { ...turkish, ...selected };
+    
     updatePageMetadata(dict, lang);
     document.querySelectorAll('[data-lang-key]').forEach((element) => {
       const value = dict[element.dataset.langKey];
