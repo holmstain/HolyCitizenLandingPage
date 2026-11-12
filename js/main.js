@@ -102,12 +102,12 @@
   async function setLang(lang) {
     if (!supportedLocales.has(lang)) return;
     const request = ++languageRequest;
-    let english;
-    let selected;
+    let turkish = {};
+    let selected = {};
     try {
-      [english, selected] = await Promise.all([
-        loadLocale('en'),
-        lang === 'en' ? loadLocale('en') : loadLocale(lang)
+      [turkish, selected] = await Promise.all([
+        loadLocale('tr'),
+        lang === 'tr' ? loadLocale('tr') : loadLocale(lang)
       ]);
     } catch (error) {
       console.error('Locale files could not be loaded:', error);
