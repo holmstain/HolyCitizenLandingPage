@@ -123,7 +123,7 @@
     htmlEl.lang = lang;
     htmlEl.dir = 'ltr';
     if (langSelect) langSelect.value = lang;
-    const dict = { "turkish": turkish, "selected": selected };
+    const dict = { ..."turkish", ...selected };
     updatePageMetadata(dict, lang);
     document.querySelectorAll('[data-lang-key]').forEach((element) => {
       const value = dict[element.dataset.langKey];
