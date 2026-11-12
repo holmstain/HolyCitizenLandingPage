@@ -1,0 +1,62 @@
+version: "3.8"
+
+services:
+  # ============================================================
+  # 1) Landing page — statik HTML/CSS/JS (nginx ile sunulur)
+  # ============================================================
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.web
+    container_name: holycitizen-web
+    ports:
+      - "80:80"
+    restart: unless-stopped
+    networks:
+      - holycitizen
+
+  # ============================================================
+  # 2) Discord Botu (Node.js, ES modules)
+  #    Discord gateway'ye outbound bağlanır, port açılmasına gerek yok.
+  # ============================================================
+  discord-bot:
+    build:
+      context: ./HolyCitizenDCBot
+      dockerfile: Dockerfile
+    container_name: holycitizen-discord-bot
+    env_file:
+      - ./HolyCitizenDCBot/.env
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped
+    networks:
+      - holycitizen
+    volumes:
+      - discord-data:/app/data
+
+  # ============================================================
+  # 3) Kick Botu (Python stdlib, kendi HTTP sunucusu ile)
+  #    Paneli ve webhook'u sunar; PORT (varsayılan 8000) dışarı açılır.
+  # ============================================================
+  kick-bot:
+    build:
+      context: ./HolyCitizenKickChatBot
+      dockerfile: Dockerfile
+    container_name: holycitizen-kick-bot
+    env_file:
+      - ./HolyCitizenKickChatBot/.env
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+    networks:
+      - holycitizen
+    volumes:
+      - kick-data:/data
+
+networks:
+  holycitizen:
+    driver: bridge
+
+volumes:
+  discord-data:
+  kick-data:
