@@ -5,5 +5,5 @@ services:
       dockerfile: Dockerfile.web
     container_name: holycitizen-web
     ports:
-      - "80:80"
+      - "8080:80"
     restart: unless-stopped
