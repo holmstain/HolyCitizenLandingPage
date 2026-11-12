@@ -1,24 +1,3 @@
-# Environment & Secrets (Hassas Bilgiler)
-.env
-
-# Virtual Environment (Sanal Ortam)
-venv/
-env/
-ENV/
-
-# User Output Archives (Çeviri Çıktıları ve Kişisel Veriler)
-outputs/
-.vscode
-.github/
-
-# Logs (Günlükler)
-*.log
-
-# tests
-tests/
-nginx/
-.vscode/
-
 # OS specific files
 .DS_Store
 Thumbs.db
